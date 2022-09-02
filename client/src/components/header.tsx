@@ -10,9 +10,15 @@ export default function HeaderUnit() {
             <a className="btn btn-ghost hover:btn-primary text-2xl">DeejCoder</a>
             </Link>
             <div className="btn-group">
+            <Link to='/coder'>
             <a className="btn btn-ghost hover:btn-secondary text-xl">Coder</a>
+            </Link>
+            <Link to='/guides'>
             <a className="btn btn-ghost hover:btn-secondary text-xl">Guides</a>
+            </Link>
+            <Link to='/profile'>
             <a className="btn btn-ghost hover:btn-secondary text-xl">Profile</a>
+            </Link>
             </div>
         </div>
     );

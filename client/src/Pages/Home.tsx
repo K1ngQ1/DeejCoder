@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
     return (
@@ -23,7 +24,9 @@ export default function HomePage() {
             <br />
             <article className="prose">
                 <h1 className="text-primary">Some Guides I made</h1>
+                <Link to='/guides'>
                 <button className="btn btn-accent">Guides</button>
+                </Link>
             </article>
         </div>
     );
