@@ -59,7 +59,7 @@ function App() {
                         <Route path="/profile" exact component={Profile} />
                     </Switch>
                     <select
-                        className="select absolute bottom-2 left-2"
+                        className="select bottom-2 btn btn-ghost mt-5"
                         onChange={(e) => {
                             setTheme(e.target.value);
                         }}
