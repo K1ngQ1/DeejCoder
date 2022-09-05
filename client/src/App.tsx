@@ -16,8 +16,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 function App() {
     const [theme, setTheme] = useState("dark");
     const themes = [
-        "light",
         "dark",
+        "light",
         "cupcake",
         "bumblebee",
         "emerald",
@@ -64,7 +64,7 @@ function App() {
                             setTheme(e.target.value);
                         }}
                     >
-                        <option disabled>
+                        <option value="dark">
                             Theme
                         </option>
                         {themes.map((theme) => (

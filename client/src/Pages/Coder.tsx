@@ -10,6 +10,9 @@ export default function Coder() {
         <div className="artboard bg-base-200 rounded-xl border border-solid border-primary p-4 w-10/12 mb-2">
             <h1 className="text-5xl">DeejCoder:</h1>
             <br/>
+            <br/>
+            <h1 className="text-3xl">Arduino File Setup:</h1>
+            <br/>
             <h2>Project Name:</h2>
             <input
                 type="text"
@@ -53,6 +56,8 @@ export default function Coder() {
               })}
             </div>
 
+            <br />
+            <h1 className="text-3xl">Config File Setup:</h1>
             <br />
             <ArduinoOutput 
             sliderCount = {sliderCount}
