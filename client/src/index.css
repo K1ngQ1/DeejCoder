@@ -12,5 +12,23 @@
 } */
 
 .btn {
-  @apply m-1 normal-case;
+    @apply m-1 normal-case;
+}
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+    width: 0.5em;
+}
+::-webkit-scrollbar-track {
+    background: hsl(0, 0%, 25%);
+    border-radius: 100vw;
+    margin-block: 0.5em;
+}
+::-webkit-scrollbar-thumb {
+    background: hsl(0, 0%, 40%);
+    border-radius: 100vw;
+    border: 0.15rem solid hsl(0, 0%, 25%);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: hsl(0, 0%, 20%);
 }
