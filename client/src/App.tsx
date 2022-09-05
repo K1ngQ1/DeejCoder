@@ -64,7 +64,7 @@ function App() {
                             setTheme(e.target.value);
                         }}
                     >
-                        <option disabled selected>
+                        <option disabled>
                             Theme
                         </option>
                         {themes.map((theme) => (

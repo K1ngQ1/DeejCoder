@@ -1,34 +1,66 @@
 import React, { useState } from "react";
+import ArduinoOutput from "../components/coder/ArduinoOutput";
 import ConfigYaml from "../components/coder/configYaml";
 
 export default function Coder() {
     const [displayState, setDisplayState] = useState(false);
+    const [sliderCount, setSliderCount] = useState(0);
 
     return (
         <div className="artboard bg-base-200 rounded-xl border border-solid border-primary p-4 w-10/12 mb-2">
-            <h1>Deej Coder:</h1>
-            <div className="form-control">
-                <label className="label cursor-pointer">
-                    <span className="label-text">Display</span>
-                    <input
-                        type="checkbox"
-                        className="toggle toggle-primary"
-                        id="display"
-                        onClick={() => {
-                            setDisplayState(!displayState);
-                        }}
-                    />
-                </label>
+            <h1 className="text-5xl">DeejCoder:</h1>
+            <br/>
+            <h2>Project Name:</h2>
+            <input
+                type="text"
+                placeholder="Type here"
+                className="input input-bordered input-primary w-full max-w-xs"
+            />
+            <br/>
+            <br/>
+            <h2>How many knobs/sliders? Amount: {sliderCount}</h2>
+            <input
+                type="range"
+                min="0"
+                max="10"
+                className="range range-primary"
+                step="1"
+                value={sliderCount}
+                onChange={(e) => {
+                    setSliderCount(e.target.valueAsNumber);
+                }}
+            />
+            <div className="w-full flex justify-between text-xs px-2">
+                {Array.from(Array(11), (e, i) => {
+                    return <span key={i}>{i}</span>;
+                })}
             </div>
-            <div>{displayState ? <div>ksladjf;asjdfkdas</div> : <div />}</div>
-            <h2>Arduino Code</h2>
-            <div className="mockup-code bg-primary text-primary-content">
-                <pre>
-                    <code>can be any color!</code>
-                </pre>
+                <br/>
+            <div>
+              <h2>What analog pins are the knobs connected to?</h2>
+              <br/>
+              {Array.from(Array(sliderCount), (e,i) => {
+                return(
+                  <>
+                  slider {i+1}:
+                  <select className="select m-1" key={i}>
+                    {Array.from(Array(11), (e, i) => {
+                      return <option value={i}>A{i}</option>
+                    })}
+                  </select>
+                  </>
+                )
+              })}
             </div>
+
+            <br />
+            <ArduinoOutput 
+            sliderCount = {sliderCount}
+            />
             <br />
             <ConfigYaml />
+            <br />
+            <button className="btn btn-primary">Save Project</button>
         </div>
     );
 }

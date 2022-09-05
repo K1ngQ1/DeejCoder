@@ -18,12 +18,14 @@
 /* custom scrollbar */
 ::-webkit-scrollbar {
     width: 0.5em;
+    height: 0.5em;
 }
 ::-webkit-scrollbar-track {
     background: hsl(0, 0%, 25%);
     border-radius: 100vw;
     margin-block: 0.5em;
-}
+    margin-inline: 0.5em;
+  }
 ::-webkit-scrollbar-thumb {
     background: hsl(0, 0%, 40%);
     border-radius: 100vw;
