@@ -7,7 +7,7 @@ export default function Coder() {
     // const [displayState, setDisplayState] = useState(false);
     const [sliderCount, setSliderCount] = useState(0);
 
-    const [loggedIn, setloggedIn] = useState(true);
+    const [loggedIn, setloggedIn] = useState(false);
 
     //trigger function to apply changes to the analog pins array in die code component
     const [trigger, setTrigger] = useState(true);
