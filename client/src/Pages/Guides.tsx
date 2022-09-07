@@ -11,25 +11,25 @@ export default function () {
     return (
         <>
             <div className="artboard bg-base-200 rounded-xl border border-solid border-primary p-2 w-10/12 m-2">
-                <button className="btn btn-accent">
+                <a className="btn btn-accent" href="#install">
                     How to install Arduino IDE
-                </button>
-                <button className="btn btn-accent">How to use our site</button>
-                <button className="btn btn-accent">
+                </a>
+                <a className="btn btn-accent" href="#site">How to use our site</a>
+                <a className="btn btn-accent" href="#flash">
                     How to flash to arduino
-                </button>
-                <button className="btn btn-accent">
+                </a>
+                <a className="btn btn-accent" href="#deejUse">
                     How to use Deej software
-                </button>
-                <button className="btn btn-accent">
+                </a>
+                <a className="btn btn-accent" href="#deejMake">
                     How to make Deej controller
-                </button>
+                </a>
             </div>
-            <Ht_site />
-            <Ht_MakeDeej />
             <Ht_installArd />
+            <Ht_site />
             <Ht_Flash />
             <Ht_UseDeej />
+            <Ht_MakeDeej />
         </>
     );
 }

@@ -46,6 +46,7 @@ function App() {
         "coffee",
         "winter",
     ];
+    const [loggedIn, setloggedIn] = useState(false)
     return (
         <Router>
             <div className="App" data-theme={theme}>
@@ -64,11 +65,11 @@ function App() {
                             setTheme(e.target.value);
                         }}
                     >
-                        <option value="dark">
+                        <option value="dark" key={`theme`}>
                             Theme
                         </option>
                         {themes.map((theme) => (
-                            <option value={theme}>{theme}</option>
+                            <option value={theme} key={theme}>{theme}</option>
                         ))}
                     </select>
                 </header>

@@ -1,13 +1,14 @@
 import React from "react";
 
 interface arduinoProps {
-  sliderCount: Number
+  sliderCount: Number,
+  analogId: Array<String>
 }
 
 export default function ArduinoOutput(props:arduinoProps) {
     const code = `#
     const int NUM_SLIDERS = ${props.sliderCount};
-    const int analogInputs[NUM_SLIDERS] = {A0, A1, A2, A3};
+    const int analogInputs[NUM_SLIDERS] = {${props.analogId}};
     
     int analogSliderValues[NUM_SLIDERS];
     
