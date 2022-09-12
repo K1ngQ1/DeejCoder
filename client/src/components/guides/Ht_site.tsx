@@ -86,15 +86,15 @@ export default function Ht_site() {
                     slider to control.
                 </p>
                 <p>
-                    Master controlls all volume on your system, Mic controls
-                    your default mic's output volume, Unmapped controlls all
+                    Master controls all volume on your system, Mic controls
+                    your default mic's output volume, Unmapped controls all
                     your applications that your have not mapped (currently this
                     and System sounds only work on Windows machines), System
                     Sounds control your devices System sounds. <br />{" "}
                     Application does require you to do some editing to the code
                     in the file, you will have to change the "**.exe" to the
                     application you wish to control. Like for instance if you
-                    want to controll discord you would have to change the
+                    want to control discord you would have to change the
                     "**.exe" to "discord.exe" and change that accordingly to
                     what application you want to change that to.
                 </p>
@@ -113,7 +113,7 @@ export default function Ht_site() {
                     After that you will see a select for what level of noise
                     reduction you need. Low is for good quality hardware and
                     High is for more noisy hardware. The default I recommend is
-                    the middleground for most hardware.
+                    the middle-ground for most hardware.
                 </p>
                 <br />
                 <p>

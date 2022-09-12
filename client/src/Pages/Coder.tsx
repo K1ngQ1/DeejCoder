@@ -15,7 +15,7 @@ export default function Coder(props: state) {
     let analogIdIn = Array.from(Array(sliderCount), (e, i) => {
         return `A${i}`;
     });
-    const [analogId, setSnalogId] = useState(analogIdIn);
+    const [analogId, setAnalogId] = useState(analogIdIn);
 
     //state for config file output
     const [comPort, setComPort] = useState<string>("");
@@ -128,7 +128,7 @@ export default function Coder(props: state) {
                                 console.log(sliderConfig);
                             }}
                         >
-                            <option value={`selcect action`}>
+                            <option value={`select action`}>
                                 Select Action
                             </option>
                             <option value={`${i}: master`}>master</option>
@@ -190,7 +190,7 @@ export default function Coder(props: state) {
                     onChange={(e) => setConfigNoise(e.target.value)}
                 >
                     <option value="">Select Option</option>
-                    <option value="defualt">Default</option>
+                    <option value="default">Default</option>
                     <option value="low">Low</option>
                     <option value="high">High</option>
                 </select>
