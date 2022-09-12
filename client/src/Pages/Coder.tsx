@@ -64,7 +64,6 @@ export default function Coder(props: state) {
                 value={sliderCount}
                 onChange={async (e) => {
                     await setSliderCount(e.target.valueAsNumber);
-                    // analogCounter()
                 }}
             />
             <div className="w-full flex justify-between text-xs px-2">
@@ -197,9 +196,6 @@ export default function Coder(props: state) {
             </p>
 
             <br />
-            {/* const [comPort, setComPort] = useState(0);
-    const [configNoise, setConfigNoise] = useState("default");
-    const [invertSlider, setInvertSlider] = useState("false"); */}
             <ConfigYaml
                 sliderCount={sliderCount}
                 sliderConfig={sliderConfig}
