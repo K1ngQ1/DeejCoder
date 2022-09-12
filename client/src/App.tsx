@@ -46,18 +46,29 @@ function App() {
         "coffee",
         "winter",
     ];
-    const [loggedIn, setloggedIn] = useState(false)
+    const [loggedIn, setLoggedIn] = useState<boolean>(false);
     return (
         <Router>
             <div className="App" data-theme={theme}>
                 <header className="App-header">
-                    <HeaderUnit />
+                    <HeaderUnit loggedIn={loggedIn}/>
 
                     <Switch>
-                        <Route path="/" exact component={HomePage} />
-                        <Route path="/coder" exact component={Coder} />
-                        <Route path="/guides" exact component={Guides} />
-                        <Route path="/profile" exact component={Profile} />
+                        <Route path="/" exact>
+                            <HomePage
+                                loggedIn={loggedIn}
+                                setLoggedIn={setLoggedIn}
+                            />
+                        </Route>
+                        <Route path="/coder" exact>
+                            <Coder loggedIn = {loggedIn} />
+                        </Route>
+                        <Route path="/guides" exact>
+                            <Guides />
+                        </Route>
+                        <Route path="/profile" exact>
+                            <Profile />
+                        </Route>
                     </Switch>
                     <select
                         className="select fixed bottom-2 left-2 btn-sm btn-secondary mt-5"
@@ -69,7 +80,9 @@ function App() {
                             Theme
                         </option>
                         {themes.map((theme) => (
-                            <option value={theme} key={theme}>{theme}</option>
+                            <option value={theme} key={theme}>
+                                {theme}
+                            </option>
                         ))}
                     </select>
                 </header>

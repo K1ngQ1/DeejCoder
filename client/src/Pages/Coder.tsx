@@ -3,22 +3,37 @@ import { Link } from "react-router-dom";
 import ArduinoOutput from "../components/coder/ArduinoOutput";
 import ConfigYaml from "../components/coder/configYaml";
 
-export default function Coder() {
-    // const [displayState, setDisplayState] = useState(false);
-    const [sliderCount, setSliderCount] = useState(0);
+interface state {
+    loggedIn: boolean;
+}
 
-    const [loggedIn, setloggedIn] = useState(false);
+export default function Coder(props: state) {
+    //state for arduino code output
+    const [sliderCount, setSliderCount] = useState(3);
+    const [codeName, setCodeName] = useState("");
+    //array to save to the user input analog pin location.
+    let analogIdIn = Array.from(Array(sliderCount), (e, i) => {
+        return `A${i}`;
+    });
+    const [analogId, setSnalogId] = useState(analogIdIn);
+
+    //state for config file output
+    const [comPort, setComPort] = useState<string>("");
+    const [configNoise, setConfigNoise] = useState<string>("");
+    const [invertSlider, setInvertSlider] = useState<string>("");
+
+    //const array for config file slider_mapping
+    let sliderArray = Array.from(Array(sliderCount), (e, i) => {
+        return ``;
+    });
+    console.log(sliderArray);
+    const [sliderConfig, setSliderConfig] = useState(sliderArray);
 
     //trigger function to apply changes to the analog pins array in die code component
     const [trigger, setTrigger] = useState(true);
     const triggerFunc = () => {
         setTrigger(!trigger);
     };
-    //array to save to the user input.
-    let analogIdIn = Array.from(Array(sliderCount), (e, i) => {
-        return `A${i}`;
-    });
-    const [analogId, setSnalogId] = useState(analogIdIn);
 
     return (
         <div className="artboard bg-base-200 rounded-xl border border-solid border-primary p-4 w-10/12 mb-2">
@@ -32,6 +47,10 @@ export default function Coder() {
                 type="text"
                 placeholder="Type here"
                 className="input input-bordered input-primary w-full max-w-xs"
+                value={codeName}
+                onChange={(e) => {
+                    setCodeName(e.target.value);
+                }}
             />
             <br />
             <br />
@@ -87,6 +106,7 @@ export default function Coder() {
                     Apply
                 </button>
             </div>
+
             <br />
             <ArduinoOutput
                 sliderCount={sliderCount}
@@ -103,7 +123,14 @@ export default function Coder() {
                         <select
                             className="select  select-primary m-1  max-w-lg"
                             key={i}
+                            onChange={(e) => {
+                                sliderConfig.splice(i, 1, e.target.value);
+                                console.log(sliderConfig);
+                            }}
                         >
+                            <option value={`selcect action`}>
+                                Select Action
+                            </option>
                             <option value={`${i}: master`}>master</option>
                             <option value={`${i}: mic`}>mic</option>
                             <option value={`${i}: deej.unmapped`}>
@@ -118,27 +145,51 @@ export default function Coder() {
                     </>
                 );
             })}
+            <button
+                className="btn btn-primary btn-outline"
+                onClick={() => {
+                    triggerFunc();
+                }}
+            >
+                Apply
+            </button>
             <br />
             <p>
                 Invert Sliders:{" "}
-                <select className="select select-primary m-1">
+                <select
+                    className="select select-primary m-1"
+                    onChange={(e) => setInvertSlider(e.target.value)}
+                >
+                    <option value="">Select Option</option>
                     <option value="false">false</option>
                     <option value="true">true</option>
                 </select>
             </p>
             <br />
             <p>
-                com Port:{" "}
-                <select className="select select-primary m-1">
+                COM Port:{" "}
+                <select
+                    className="select select-primary m-1"
+                    onChange={(e) => setComPort(e.target.value)}
+                >
+                    <option value="">Select Option</option>
                     {Array.from(Array(13), (e, i) => {
-                        return <option>{i}</option>;
+                        return (
+                            <option value={i} key={`com${i}`}>
+                                {i}
+                            </option>
+                        );
                     })}
                 </select>
             </p>
             <br />
             <p>
                 Noise Reduction:{" "}
-                <select className="select select-primary m-1">
+                <select
+                    className="select select-primary m-1"
+                    onChange={(e) => setConfigNoise(e.target.value)}
+                >
+                    <option value="">Select Option</option>
                     <option value="defualt">Default</option>
                     <option value="low">Low</option>
                     <option value="high">High</option>
@@ -146,10 +197,20 @@ export default function Coder() {
             </p>
 
             <br />
-            <ConfigYaml />
+            {/* const [comPort, setComPort] = useState(0);
+    const [configNoise, setConfigNoise] = useState("default");
+    const [invertSlider, setInvertSlider] = useState("false"); */}
+            <ConfigYaml
+                sliderCount={sliderCount}
+                sliderConfig={sliderConfig}
+                trigger={trigger}
+                comPort={comPort}
+                configNoise={configNoise}
+                invertSlider={invertSlider}
+            />
             <br />
             <br />
-            {loggedIn ? (
+            {props.loggedIn ? (
                 <button className="btn btn-primary">Save Project</button>
             ) : (
                 <div className="alert alert-info shadow-lg">
