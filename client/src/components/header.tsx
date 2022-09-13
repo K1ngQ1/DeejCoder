@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 interface state {
     loggedIn: boolean;
+    setLoggedIn: React.Dispatch<React.SetStateAction<any>>;
 }
 export default function HeaderUnit(props: state) {
     return (
@@ -32,6 +33,14 @@ export default function HeaderUnit(props: state) {
                     Login
                 </a>)}
             </Link>
+            <button
+                className="btn btn-secondary"
+                onClick={() => {
+                    props.setLoggedIn(!props.loggedIn);
+                }}
+            >
+                Log in change
+            </button>
         </div>
     );
 }

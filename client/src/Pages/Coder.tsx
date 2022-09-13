@@ -36,7 +36,7 @@ export default function Coder(props: state) {
     };
 
     return (
-        <div className="artboard bg-base-200 rounded-xl border border-solid border-primary p-4 w-10/12 mb-2">
+        <div className="artboard bg-base-200 rounded-xl border border-solid border-primary p-4 w-8/12 mb-2">
             <h1 className="text-5xl">deejCoder:</h1>
             <br />
             <br />
@@ -59,7 +59,7 @@ export default function Coder(props: state) {
                 type="range"
                 min="0"
                 max="8"
-                className="range range-primary"
+                className="range range-secondary"
                 step="1"
                 value={sliderCount}
                 onChange={async (e) => {
@@ -80,7 +80,7 @@ export default function Coder(props: state) {
                         <>
                             <> slider {i + 1}:</>
                             <select
-                                className="select m-1"
+                                className="select m-1 select-secondary"
                                 key={i}
                                 onChange={(e) => {
                                     analogId.splice(i, 1, e.target.value);
@@ -97,7 +97,7 @@ export default function Coder(props: state) {
                     );
                 })}
                 <button
-                    className="btn btn-outline btn-primary"
+                    className="btn btn-outline btn-secondary"
                     onClick={() => {
                         triggerFunc();
                     }}
@@ -115,60 +115,54 @@ export default function Coder(props: state) {
             <br />
             <h1 className="text-3xl">Config File Setup:</h1>
             <br />
-            {Array.from(Array(sliderCount), (e, i) => {
-                return (
-                    <>
-                        slider {i + 1}:
-                        <select
-                            className="select  select-primary m-1  max-w-lg"
-                            key={i}
-                            onChange={(e) => {
-                                sliderConfig.splice(i, 1, e.target.value);
-                                console.log(sliderConfig);
-                            }}
-                        >
-                            <option value={`select action`}>
-                                Select Action
-                            </option>
-                            <option value={`${i}: master`}>master</option>
-                            <option value={`${i}: mic`}>mic</option>
-                            <option value={`${i}: deej.unmapped`}>
-                                Unmapped
-                            </option>
-                            <option value={`${i}: system`}>
-                                System Sounds
-                            </option>
-                            <option value={`${i}: **.exe`}>Application</option>
-                        </select>
-                        <br />
-                    </>
-                );
-            })}
-            <button
-                className="btn btn-primary btn-outline"
-                onClick={() => {
-                    triggerFunc();
-                }}
-            >
-                Apply
-            </button>
+            <div className="columns-4">
+                {Array.from(Array(sliderCount), (e, i) => {
+                    return (
+                        <div>
+                            {" "}
+                            slider {i + 1}:{" "}
+                            <select
+                                className="select  select-secondary m-1  max-w-lg"
+                                key={i}
+                                onChange={(e) => {
+                                    sliderConfig.splice(i, 1, e.target.value);
+                                    console.log(sliderConfig);
+                                }}
+                            >
+                                <option value={`select action`}>
+                                    Select Action
+                                </option>
+                                <option value={`${i}: master`}>master</option>
+                                <option value={`${i}: mic`}>mic</option>
+                                <option value={`${i}: deej.unmapped`}>
+                                    Unmapped Apps
+                                </option>
+                                <option value={`${i}: system`}>
+                                    System Sounds
+                                </option>
+                                <option value={`${i}: **.exe`}>
+                                    Application
+                                </option>
+                            </select>
+                        </div>
+                    );
+                })}
+            </div>
+            
             <br />
-            <p>
+            <div className="column-3 p-1 m-2">
                 Invert Sliders:{" "}
                 <select
-                    className="select select-primary m-1"
+                    className="select select-secondary m-1"
                     onChange={(e) => setInvertSlider(e.target.value)}
                 >
                     <option value="">Select Option</option>
-                    <option value="false">false</option>
                     <option value="true">true</option>
+                    <option value="false">false</option>
                 </select>
-            </p>
-            <br />
-            <p>
                 COM Port:{" "}
                 <select
-                    className="select select-primary m-1"
+                    className="select select-secondary m-1"
                     onChange={(e) => setComPort(e.target.value)}
                 >
                     <option value="">Select Option</option>
@@ -180,26 +174,30 @@ export default function Coder(props: state) {
                         );
                     })}
                 </select>
-            </p>
-            <br />
-            <p>
                 Noise Reduction:{" "}
                 <select
-                    className="select select-primary m-1"
+                    className="select select-secondary m-1"
                     onChange={(e) => setConfigNoise(e.target.value)}
                 >
                     <option value="">Select Option</option>
-                    <option value="default">Default</option>
                     <option value="low">Low</option>
+                    <option value="default">Default</option>
                     <option value="high">High</option>
                 </select>
-            </p>
-
+            </div>
+            <button
+                className="btn btn-secondary btn-outline btn-wide"
+                onClick={() => {
+                    triggerFunc();
+                }}
+            >
+                Apply
+            </button>
             <br />
             <ConfigYaml
+                trigger={trigger}
                 sliderCount={sliderCount}
                 sliderConfig={sliderConfig}
-                trigger={trigger}
                 comPort={comPort}
                 configNoise={configNoise}
                 invertSlider={invertSlider}
@@ -207,9 +205,9 @@ export default function Coder(props: state) {
             <br />
             <br />
             {props.loggedIn ? (
-                <button className="btn btn-primary">Save Project</button>
+                <button className="btn btn-secondary">Save Project</button>
             ) : (
-                <div className="alert alert-info shadow-lg">
+                <div className="alert bg-secondary shadow-lg">
                     <div>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

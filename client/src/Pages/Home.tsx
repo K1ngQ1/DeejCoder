@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 interface state {
     loggedIn: boolean;
-    setLoggedIn: React.Dispatch<React.SetStateAction<any>>;
 }
 
 export default function HomePage(props: state) {
@@ -45,14 +44,7 @@ export default function HomePage(props: state) {
                     <button className="btn btn-accent">Guides</button>
                 </Link>
             </article>
-            <button
-                className="btn btn-secondary"
-                onClick={() => {
-                    props.setLoggedIn(!props.loggedIn);
-                }}
-            >
-                Log in change
-            </button>
+           
         </div>
     );
 }

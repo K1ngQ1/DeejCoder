@@ -51,23 +51,22 @@ function App() {
         <Router>
             <div className="App" data-theme={theme}>
                 <header className="App-header">
-                    <HeaderUnit loggedIn={loggedIn}/>
+                    <HeaderUnit loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
 
                     <Switch>
                         <Route path="/" exact>
                             <HomePage
                                 loggedIn={loggedIn}
-                                setLoggedIn={setLoggedIn}
                             />
                         </Route>
                         <Route path="/coder" exact>
-                            <Coder loggedIn = {loggedIn} />
+                            <Coder loggedIn={loggedIn} />
                         </Route>
                         <Route path="/guides" exact>
                             <Guides />
                         </Route>
                         <Route path="/profile" exact>
-                            <Profile />
+                            <Profile loggedIn={loggedIn} />
                         </Route>
                     </Switch>
                     <select

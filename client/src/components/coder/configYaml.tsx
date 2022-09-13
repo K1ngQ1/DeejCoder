@@ -1,34 +1,37 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface state {
-    sliderCount: Number,
-    sliderConfig: Array<string>,
-    trigger: boolean,
-    comPort: String,
-    configNoise: String,
-    invertSlider: String
+    sliderCount: Number;
+    sliderConfig: Array<string>;
+    trigger: boolean;
+    comPort: String;
+    configNoise: String;
+    invertSlider: String;
 }
 
 export default function ConfigYaml(props: state) {
+    const [test, setTest] = useState(props.sliderConfig);
+    console.log(props.sliderConfig);
+    const slider_mapper = (string: String) => {
+        console.log(string);
+        return `${string}
+            `;
+    };
 
-    const slider_mapper = (string:String) => {
-        console.log(string)
-        return(
-            `${string}
-            `)
-    }
+    const slider_action = (array: Array<string>) => {
+        // for(var val of array){
+        //     // slider_mapper(val)
+        //     return(
+        //         `${val}
+        //         `
+        //     )
+        // }
 
-    const slider_action = (array:Array<string>) => {
-        for(var val of array){
-            slider_mapper(val)
-            // return(
-            //     `${val}
-            //     `
-            // )
-        }
-    }
+        array.map((data) => {
+            return <div>data[0]</div>;
+        });
+    };
 
-    
     const code = `
     # process names are case-insensitive
     # you can use 'master' to indicate the master channel, or a list of process names to create a group
