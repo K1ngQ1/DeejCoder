@@ -58,7 +58,7 @@ export default function Ht_site() {
                 <p>
                     You can see the inputs of the arduino labeled like so or
                     labeled similarly. You could always also see which ports are
-                    which on the schemtic of your arduino online.
+                    which on the schematic of your arduino online.
                 </p>
                 <br />
                 <p>
