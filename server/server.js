@@ -5,7 +5,10 @@ import cors from "cors";
 
 const app = express();
 
-app.use(express.json());
+//configuring middleware
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 app.get("/", (req, res) => {
     res.send("server");
