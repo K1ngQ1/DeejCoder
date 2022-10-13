@@ -9,6 +9,7 @@ import HomePage from "./Pages/Home";
 import Guides from "./Pages/Guides";
 import Profile from "./Pages/Profile";
 import Coder from "./Pages/Coder";
+import CodeView from "./Pages/CodeView";
 
 //Component Import
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -58,6 +59,9 @@ function App() {
                             <HomePage
                                 loggedIn={loggedIn}
                             />
+                        </Route>
+                        <Route path="/code/:name" exact>
+                            <CodeView />
                         </Route>
                         <Route path="/coder" exact>
                             <Coder loggedIn={loggedIn} />

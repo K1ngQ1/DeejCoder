@@ -37,13 +37,13 @@ export default function HomePage(props: state) {
                     the deej Github.
                 </p>
             </article>
-            <br />
+            {/* <br />
             <article className="prose">
                 <h1 className="text-primary">Some Guides I made</h1>
                 <Link to="/guides">
                     <button className="btn btn-accent">Guides</button>
                 </Link>
-            </article>
+            </article> */}
            
         </div>
     );

@@ -35,6 +35,22 @@ export default function Coder(props: state) {
         setTrigger(!trigger);
     };
 
+    const saveTemplate = {
+        codeName,
+        sliderCount,
+        analogId,
+        sliderConfig,
+        comPort,
+        configNoise,
+        invertSlider
+    }
+    //project save button
+    const saveProject = () => {
+        alert("project saved");
+        console.log(saveTemplate)
+    };
+
+    
     return (
         <div className="artboard bg-base-200 rounded-xl border border-solid border-primary p-4 w-8/12 mb-2">
             <h1 className="text-5xl">deejCoder:</h1>
@@ -148,7 +164,7 @@ export default function Coder(props: state) {
                     );
                 })}
             </div>
-            
+
             <br />
             <div className="column-3 p-1 m-2">
                 Invert Sliders:{" "}
@@ -204,8 +220,11 @@ export default function Coder(props: state) {
             />
             <br />
             <br />
+            {/* button bottom of page for save or login prompt */}
             {props.loggedIn ? (
-                <button className="btn btn-secondary">Save Project</button>
+                <button className="btn btn-secondary" onClick={saveProject}>
+                    Save Project
+                </button>
             ) : (
                 <div className="alert bg-secondary shadow-lg">
                     <div>

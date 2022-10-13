@@ -64,7 +64,6 @@ export default function ArduinoOutput(props:arduinoProps) {
     }`;
     return (
         <>
-            <h2>Arduino Code</h2>
             <div className="mockup-code bg-primary text-primary-content justify-start text-left">
                 <pre data-prefix="$">
                     <code>{code}</code>

@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 interface state {
     sliderCount: Number;
     sliderConfig: Array<string>;
@@ -10,26 +8,18 @@ interface state {
 }
 
 export default function ConfigYaml(props: state) {
-    const [test, setTest] = useState(props.sliderConfig);
     console.log(props.sliderConfig);
     const slider_mapper = (string: String) => {
         console.log(string);
-        return `${string}
-            `;
+        return `${string}`;
     };
 
     const slider_action = (array: Array<string>) => {
-        // for(var val of array){
-        //     // slider_mapper(val)
-        //     return(
-        //         `${val}
-        //         `
-        //     )
-        // }
-
-        array.map((data) => {
-            return <div>data[0]</div>;
-        });
+        var help = "";
+        for (var val of array) {
+            help += "\t" + slider_mapper(val) + "\n\t";
+        }
+        return help;
     };
 
     const code = `
@@ -49,9 +39,6 @@ export default function ConfigYaml(props: state) {
 
     slider_mapping:
     ${slider_action(props.sliderConfig)}
-
-    ${props.sliderConfig}
-
     # set this to true if you want the controls inverted (i.e. top is 0%, bottom is 100%)
     invert_sliders: ${props.invertSlider}
 
@@ -65,7 +52,6 @@ export default function ConfigYaml(props: state) {
     `;
     return (
         <>
-            <h2>Config.yaml</h2>
             <div className="mockup-code bg-primary text-primary-content justify-start text-left">
                 <pre data-prefix="$">
                     <code>{code}</code>
