@@ -4,15 +4,16 @@ import ProfilePage from '../components/profile/ProfilePage';
 
 interface state {
   loggedIn: boolean;
+  setLoggedIn: React.Dispatch<React.SetStateAction<any>>;
 }
 
 export default function Profile(props: state) {
   return (
-    <div className="artboard bg-base-200 rounded-xl border border-solid border-primary p-4 w-10/12 mb-2 justify-center items-center">
+    <div className="artboard bg-base-200 rounded-xl border border-solid border-secondary p-4 w-10/12 mb-2 justify-center items-center">
       {props.loggedIn ?
-      <ProfilePage/> 
+      <ProfilePage loggedIn={props.loggedIn} setLoggedIn={props.setLoggedIn}/>
       :
-      <Login/>
+      <Login loggedIn={props.loggedIn} setLoggedIn={props.setLoggedIn}/>
     }
     </div>
   )

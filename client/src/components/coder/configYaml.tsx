@@ -8,9 +8,7 @@ interface state {
 }
 
 export default function ConfigYaml(props: state) {
-    console.log(props.sliderConfig);
     const slider_mapper = (string: String) => {
-        console.log(string);
         return `${string}`;
     };
 

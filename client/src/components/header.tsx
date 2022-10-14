@@ -5,13 +5,12 @@ import { Link } from "react-router-dom";
 
 interface state {
     loggedIn: boolean;
-    setLoggedIn: React.Dispatch<React.SetStateAction<any>>;
 }
 export default function HeaderUnit(props: state) {
     return (
         <div className="navbar navbar-center bg-base-300 m-5 rounded-xl w-11/12">
             <Link to="/">
-                <button className="btn btn-ghost hover:btn-primary text-2xl">
+                <button className="btn btn-primary text-2xl">
                     deejCoder
                 </button>
             </Link>
@@ -33,14 +32,6 @@ export default function HeaderUnit(props: state) {
                     Login
                 </button>)}
             </Link>
-            <button
-                className="btn btn-secondary"
-                onClick={() => {
-                    props.setLoggedIn(!props.loggedIn);
-                }}
-            >
-                Log in change
-            </button>
         </div>
     );
 }

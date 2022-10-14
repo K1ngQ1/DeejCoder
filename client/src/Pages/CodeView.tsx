@@ -5,10 +5,10 @@ import ArduinoOutput from "../components/coder/ArduinoOutput";
 import ConfigYaml from "../components/coder/configYaml";
 
 export default function CodeView() {
-    const { name } = useParams<{name: string}>();
+    const { id } = useParams<{id: string}>();
     return (
         <div className="artboard bg-base-200 rounded-xl border border-solid border-primary p-4 w-8/12 mb-2 grid grid-cols-3 justify-center items-center">
-            <div className="text-3xl col-span-3">{name}</div>
+            <div className="text-3xl col-span-3">{id}</div>
             <div className="col-span-3">Date created</div>
             <br />
             <div className={`col-span-3`}>

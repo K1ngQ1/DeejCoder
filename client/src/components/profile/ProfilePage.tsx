@@ -1,8 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import CodeViewer from "./codeViewer";
+import { useCodeContext } from "../../hooks/useCodeContext";
 
-export default function ProfilePage() {
-    const [visible, setVisible] = useState(true);
+interface state {
+    loggedIn: boolean;
+    setLoggedIn: React.Dispatch<React.SetStateAction<any>>;
+}
+export default function ProfilePage(props: state) {
+    const { code, dispatch } = useCodeContext();
+
+    useEffect(() => {
+        const fetchCode = async () => {
+            const response = await fetch("/api/code");
+            const json = await response.json();
+
+            if (response.ok) {
+                dispatch({ type: "SET_CODE", payload: json });
+            }
+        };
+        fetchCode();
+    }, []);
+
+    const logOutSubmit = () => {
+        props.setLoggedIn(false);
+    };
 
     return (
         <>
@@ -13,20 +35,23 @@ export default function ProfilePage() {
             <div>
                 <h1 className="text-xl">Your saved projects:</h1>
                 <br />
-                <div className="artboard rounded-xl border border-solid border-primary p-4 w-full mb-2 grid grid-cols-3 items-center justify-items-center">
-                    <div className="text-lg">Your Project Title</div>
-                    <div>Date created</div>
-                    <div>
-                        {/* change value for the link */}
-                        <Link to={`/code/asdf1`}>
-                            <button className="btn">view</button>
-                        </Link>
-                        <button className="btn">delete</button>
-                    </div>
-                </div>
             </div>
             <div>
-                <button className="btn">Log Out</button>
+                {code &&
+                    code.map((item) => (
+                        <p key={item._id}>
+                            <CodeViewer
+                                codeName={item.codeName}
+                                date={item.updatedAt}
+                                id={`${item._id}`}
+                            />
+                        </p>
+                    ))}
+            </div>
+            <div>
+                <button className="btn" onClick={logOutSubmit}>
+                    Log Out
+                </button>
             </div>
         </>
     );

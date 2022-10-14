@@ -3,6 +3,9 @@ import React, { useState } from "react";
 //css import
 import "./App.css";
 
+//Component Import
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 //Custom component import
 import HeaderUnit from "./components/header";
 import HomePage from "./Pages/Home";
@@ -10,9 +13,6 @@ import Guides from "./Pages/Guides";
 import Profile from "./Pages/Profile";
 import Coder from "./Pages/Coder";
 import CodeView from "./Pages/CodeView";
-
-//Component Import
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
     const [theme, setTheme] = useState("dark");
@@ -47,20 +47,17 @@ function App() {
         "coffee",
         "winter",
     ];
-    const [loggedIn, setLoggedIn] = useState<boolean>(false);
+    const [loggedIn, setLoggedIn] = useState<boolean>(true);
     return (
         <Router>
             <div className="App" data-theme={theme}>
                 <header className="App-header">
-                    <HeaderUnit loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
-
+                    <HeaderUnit loggedIn={loggedIn} />
                     <Switch>
                         <Route path="/" exact>
-                            <HomePage
-                                loggedIn={loggedIn}
-                            />
+                            <HomePage loggedIn={loggedIn} />
                         </Route>
-                        <Route path="/code/:name" exact>
+                        <Route path="/code/:id" exact>
                             <CodeView />
                         </Route>
                         <Route path="/coder" exact>
@@ -70,7 +67,10 @@ function App() {
                             <Guides />
                         </Route>
                         <Route path="/profile" exact>
-                            <Profile loggedIn={loggedIn} />
+                            <Profile
+                                loggedIn={loggedIn}
+                                setLoggedIn={setLoggedIn}
+                            />
                         </Route>
                     </Switch>
                     <select

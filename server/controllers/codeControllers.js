@@ -1,34 +1,34 @@
 const CodeModel = require("../models/code");
 const mongoose = require("mongoose");
 
-// get users
-const getUsers = async (req, res) => {
+// get Code
+const getCode = async (req, res) => {
     const users = await CodeModel.find({}).sort({ createdAt: -1 });
     res.status(200).json(users);
 };
 
-// get single user
-const getSingleUser = async (req, res) => {
+// get single Code
+const getSingleCode = async (req, res) => {
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ error: "NO SUCH USER FOUND" });
+        return res.status(404).json({ error: "NO SUCH CODE FOUND" });
     }
 
-    const user = await CodeModel.findById(id);
+    const code = await CodeModel.findById(id);
     if (!user) {
-        return res.status(404).json({ error: "USER NOT FOUND" });
+        return res.status(404).json({ error: "CODE NOT FOUND" });
     }
-    res.status(200).json(user);
+    res.status(200).json(code);
 };
 
 //create code block
 const createCodeBlock = async (req, res) => {
-    const { name, projects } = req.body;
+    const { codeName, sliderConfig, analogId, comPort, sliderCount, configNoise, invertSlider } = req.body;
 
     //add doc to db
     try {
-        const workout = await CodeModel.create({ name, projects });
+        const workout = await CodeModel.create({ codeName, sliderConfig, analogId, comPort, sliderCount, configNoise, invertSlider });
         res.status(200).json(workout);
     } catch (error) {
         res.status(400).json({ errorMssg: error.message });
@@ -36,25 +36,25 @@ const createCodeBlock = async (req, res) => {
 };
 
 //delete code block
-const deleteUser = async (req,res) => {
+const deleteCode = async (req,res) => {
     const {id} = req.params;
     
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ error: "NO SUCH USER FOUND" });
+        return res.status(404).json({ error: "NO SUCH CODE FOUND" });
     }
 
-    const user = await CodeModel.findOneAndDelete({_id: id})
+    const code = await CodeModel.findOneAndDelete({_id: id})
 
-    if (!user) {
-        return res.status(404).json({ error: "USER NOT FOUND" });
+    if (!code) {
+        return res.status(404).json({ error: "CODE NOT FOUND" });
     }
 
-    res.status(200).json(user)
+    res.status(200).json(code)
 }
 
 module.exports = {
     createCodeBlock,
-    getUsers,
-    getSingleUser,
-    deleteUser,
+    getCode,
+    getSingleCode,
+    deleteCode,
 };

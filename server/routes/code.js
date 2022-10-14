@@ -3,21 +3,21 @@ const router = express.Router();
 
 const {
     createCodeBlock,
-    getUsers,
-    getSingleUser,
-    deleteUser,
+    getCode,
+    getSingleCode,
+    deleteCode,
 } = require("../controllers/codeControllers");
 
 //get all user
-router.get("/", getUsers);
+router.get("/", getCode);
 
 //get single user
-router.get("/:id", getSingleUser);
+router.get("/:id", getSingleCode);
 
 //post new user
 router.post("/", createCodeBlock);
 
 //delete user
-router.delete("/:id", deleteUser);
+router.delete("/:id", deleteCode);
 
 module.exports = router;

@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 
-export default function Login() {
+interface state {
+    loggedIn: boolean;
+    setLoggedIn: React.Dispatch<React.SetStateAction<any>>;
+}
+
+export default function Login(props: state) {
     const [account, setAccount] = useState(true);
     const [userName, setUserName] = useState("")
     const [password, setPassword] = useState("")
     const loginSubmit = () => {
         console.log(userName, password)
+        props.setLoggedIn(true)
     }
     return (
         <div className="box-content w-full justify-center items-center my-12">

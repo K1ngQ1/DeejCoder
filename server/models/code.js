@@ -4,15 +4,40 @@ const Schema = mongoose.Schema;
 
 const codeSchema = new Schema(
     {
-        name: {
+        codeName: {
             type: String,
-            required: true,
+            default: "n/a"
         },
-        projects: {
+        sliderConfig: {
             type: Array,
+            default: "n/a"
+        },
+        analogId: {
+            type: Array,
+            default: "n/a"
+        },
+        comPort: {
+            type: String,
+            default: "n/a"
+        },
+        sliderCount: {
+            type: Number,
+            default: 0
+        },
+        comPort: {
+            type: String,
+            default: "n/a"
+        },
+        configNoise: {
+            type: String,
+            default: "n/a"
+        },
+        invertSlider: {
+            type: String,
+            default: "n/a"
         },
     },
     { timestamps: true }
 )
 
-module.exports = mongoose.model("main", codeSchema);
+module.exports = mongoose.model("code", codeSchema);

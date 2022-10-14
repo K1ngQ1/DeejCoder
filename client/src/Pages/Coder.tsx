@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ArduinoOutput from "../components/coder/ArduinoOutput";
 import ConfigYaml from "../components/coder/configYaml";
+import { useCodeContext } from "../hooks/useCodeContext";
 
 interface state {
     loggedIn: boolean;
 }
 
 export default function Coder(props: state) {
+    const { dispatch } = useCodeContext();
     //state for arduino code output
     const [sliderCount, setSliderCount] = useState(3);
     const [codeName, setCodeName] = useState("");
@@ -26,7 +28,6 @@ export default function Coder(props: state) {
     let sliderArray = Array.from(Array(sliderCount), (e, i) => {
         return ``;
     });
-    console.log(sliderArray);
     const [sliderConfig, setSliderConfig] = useState(sliderArray);
 
     //trigger function to apply changes to the analog pins array in die code component
@@ -35,6 +36,10 @@ export default function Coder(props: state) {
         setTrigger(!trigger);
     };
 
+    //error
+    const [error, setError] = useState(null);
+
+    //project save button
     const saveTemplate = {
         codeName,
         sliderCount,
@@ -42,15 +47,42 @@ export default function Coder(props: state) {
         sliderConfig,
         comPort,
         configNoise,
-        invertSlider
-    }
-    //project save button
-    const saveProject = () => {
-        alert("project saved");
-        console.log(saveTemplate)
+        invertSlider,
+    };
+    //async function to send fetch request to server to create new code block, also resets the state and updates dispatch
+    const saveProject = async () => {
+        const response = await fetch("/api/code", {
+            method: "POST",
+            body: JSON.stringify(saveTemplate),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        const json = await response.json();
+        //error catch
+        if (!response.ok) {
+            setError(json.error);
+        }
+
+        if (response.ok) {
+            //updates dispatch, keeps state in sync with server
+            dispatch({ type: "CREATE_CODE", payload: json });
+            //set all state to default
+            setSliderCount(0);
+            setAnalogId([]);
+            setSliderConfig([]);
+            setCodeName("");
+            setComPort("");
+            setConfigNoise("");
+            setInvertSlider("");
+            setError(null);
+            //alert to let user know code has been saved
+            alert("new code added");
+            //console.log for debugging onsave
+            console.log("new code added", saveTemplate);
+        }
     };
 
-    
     return (
         <div className="artboard bg-base-200 rounded-xl border border-solid border-primary p-4 w-8/12 mb-2">
             <h1 className="text-5xl">deejCoder:</h1>
@@ -105,7 +137,9 @@ export default function Coder(props: state) {
                                 <option>Select Pin</option>
                                 {Array.from(Array(11), (e, i) => {
                                     return (
-                                        <option value={`A${i}`}>A{i}</option>
+                                        <option key={`pin${i}`} value={`A${i}`}>
+                                            A{i}
+                                        </option>
                                     );
                                 })}
                             </select>
@@ -142,7 +176,6 @@ export default function Coder(props: state) {
                                 key={i}
                                 onChange={(e) => {
                                     sliderConfig.splice(i, 1, e.target.value);
-                                    console.log(sliderConfig);
                                 }}
                             >
                                 <option value={`select action`}>
