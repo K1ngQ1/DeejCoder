@@ -8,16 +8,16 @@ const {
     deleteCode,
 } = require("../controllers/codeControllers");
 
-//get all user
+//get all code
 router.get("/", getCode);
 
-//get single user
+//get single code
 router.get("/:id", getSingleCode);
 
-//post new user
+//post new code
 router.post("/", createCodeBlock);
 
-//delete user
+//delete code
 router.delete("/:id", deleteCode);
 
 module.exports = router;

@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 
 // get Code
 const getCode = async (req, res) => {
-    const users = await CodeModel.find({}).sort({ createdAt: -1 });
-    res.status(200).json(users);
+    const code = await CodeModel.find({}).sort({ createdAt: -1 });
+    res.status(200).json(code);
 };
 
 // get single Code
@@ -16,7 +16,7 @@ const getSingleCode = async (req, res) => {
     }
 
     const code = await CodeModel.findById(id);
-    if (!user) {
+    if (!code) {
         return res.status(404).json({ error: "CODE NOT FOUND" });
     }
     res.status(200).json(code);

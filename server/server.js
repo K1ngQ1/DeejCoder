@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const codeRoutes = require("./routes/code");
+const userRoutes = require("./routes/user");
 
 //express app
 const app = express();
@@ -10,11 +11,12 @@ const app = express();
 //middleware
 app.use(express.json());
 app.use((req, res, next) => {
-    console.log( req.method, req.path);
+    console.log(req.method, req.path);
     next();
 });
 //routes
 app.use("/api/code", codeRoutes);
+app.use("/api/user", userRoutes);
 
 const PORT = process.env.PORT;
 //connect to db

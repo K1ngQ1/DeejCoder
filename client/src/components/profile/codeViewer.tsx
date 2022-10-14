@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import {useCodeContext} from "../../hooks/useCodeContext"
-
+import { calendarStrings } from '../calendarStrings'
 interface state {
     codeName: string;
     date: number;
@@ -11,14 +11,7 @@ interface state {
 
 export default function CodeViewer(props: state) {
     const { dispatch } = useCodeContext()
-    const calendarStrings = {
-        lastDay: "[Yesterday at] LT",
-        sameDay: "[Today at] LT",
-        nextDay: "[Tomorrow at] LT",
-        lastWeek: "[last] dddd [at] LT",
-        nextWeek: "dddd [at] LT",
-        sameElse: "L",
-    };
+    const calendarString = calendarStrings
 
     const handleDelete = async () => {
         const response = await fetch(`/api/code/${props.id}`, {
@@ -38,7 +31,7 @@ export default function CodeViewer(props: state) {
             </div>
             <div className="text-lg">
                 <h1 className="text-xs">Date:</h1> 
-                <Moment calendar={calendarStrings}>
+                <Moment calendar={calendarString}>
                     {props.date}
                 </Moment>
             </div>

@@ -47,7 +47,7 @@ function App() {
         "coffee",
         "winter",
     ];
-    const [loggedIn, setLoggedIn] = useState<boolean>(true);
+    const [loggedIn, setLoggedIn] = useState<boolean>(false);
     return (
         <Router>
             <div className="App" data-theme={theme}>
