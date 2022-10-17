@@ -2,6 +2,7 @@
 require("dotenv").config();
 
 const express = require("express");
+const path = require('path')
 const mongoose = require("mongoose");
 const codeRoutes = require("./routes/code");
 const userRoutes = require("./routes/user");
@@ -21,6 +22,20 @@ app.use(express.json());
 //routes
 app.use("/api/code", codeRoutes);
 app.use("/api/user", userRoutes);
+
+const NODE_ENV = process.env.NODE_ENV
+
+if(NODE_ENV === "production"){
+    app.use(express.static(path.join(__dirname, 'client/build')))
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+    })
+}else {
+    app.get('/', (req, res) => {
+        res.send('api running')
+    })
+}
 
 const PORT = process.env.PORT;
 //connect to db
