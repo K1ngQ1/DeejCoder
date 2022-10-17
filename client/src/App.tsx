@@ -16,7 +16,7 @@ import LoginPage from "./Pages/Login";
 import Coder from "./Pages/Coder";
 import CodeView from "./Pages/CodeView";
 
-function App() {
+export default function App() {
     const [theme, setTheme] = useState("dark");
     const themes = [
         "dark",
@@ -88,5 +88,3 @@ function App() {
         </BrowserRouter>
     );
 }
-
-export default App;
