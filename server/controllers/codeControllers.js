@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 
 // get Code
 const getCode = async (req, res) => {
-    const code = await CodeModel.find({}).sort({ createdAt: -1 });
+    const user_id = req.user._id
+    const code = await CodeModel.find({user_id}).sort({ createdAt: -1 });
     res.status(200).json(code);
 };
 
@@ -28,7 +29,8 @@ const createCodeBlock = async (req, res) => {
 
     //add doc to db
     try {
-        const workout = await CodeModel.create({ codeName, sliderConfig, analogId, comPort, sliderCount, configNoise, invertSlider });
+        const user_id = req.user._id
+        const workout = await CodeModel.create({ codeName, sliderConfig, analogId, comPort, sliderCount, configNoise, invertSlider, user_id });
         res.status(200).json(workout);
     } catch (error) {
         res.status(400).json({ errorMssg: error.message });
@@ -38,11 +40,11 @@ const createCodeBlock = async (req, res) => {
 //delete code block
 const deleteCode = async (req,res) => {
     const {id} = req.params;
-    
+    //check to see if user is valid and see if code block is found in db
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ error: "NO SUCH CODE FOUND" });
     }
-
+    //delete code block from db
     const code = await CodeModel.findOneAndDelete({_id: id})
 
     if (!code) {

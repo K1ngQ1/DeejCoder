@@ -2,6 +2,7 @@ import { createContext, useReducer } from "react";
 
 export const CodeContext = createContext();
 
+//reducer switch construction
 export const codeReducer = (state, action) => {
     switch (action.type) {
         case "SET_CODE":
@@ -26,7 +27,7 @@ export const CodeContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(codeReducer, {
         code: null,
     });
-
+    //this is used in the index.js to wrap the whole application
     return (
         <CodeContext.Provider value={{ ...state, dispatch }}>
             {children}

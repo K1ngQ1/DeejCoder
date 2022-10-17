@@ -36,6 +36,10 @@ const codeSchema = new Schema(
             type: String,
             default: "n/a"
         },
+        user_id: {
+            type: String,
+            required: true
+        }
     },
     { timestamps: true }
 )

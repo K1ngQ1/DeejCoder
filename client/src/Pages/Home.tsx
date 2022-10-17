@@ -1,11 +1,4 @@
-import React from "react";
-import { Link } from "react-router-dom";
-
-interface state {
-    loggedIn: boolean;
-}
-
-export default function HomePage(props: state) {
+export default function HomePage() {
     return (
         <div>
             <article className="prose">
@@ -33,8 +26,8 @@ export default function HomePage(props: state) {
                     <a href="https://github.com/omriharel/deej" target="_blank">
                         here
                     </a>
-                    . My guides are also based on the original guides found on
-                    the deej Github.
+                    {/* . My guides are also based on the original guides found on
+                    the deej Github. */}
                 </p>
             </article>
             {/* <br />

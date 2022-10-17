@@ -4,13 +4,15 @@ import React, { useState } from "react";
 import "./App.css";
 
 //Component Import
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { useAuthContext } from "./hooks/useAuthContext";
 
 //Custom component import
 import HeaderUnit from "./components/header";
 import HomePage from "./Pages/Home";
 import Guides from "./Pages/Guides";
 import Profile from "./Pages/Profile";
+import LoginPage from "./Pages/Login";
 import Coder from "./Pages/Coder";
 import CodeView from "./Pages/CodeView";
 
@@ -47,32 +49,25 @@ function App() {
         "coffee",
         "winter",
     ];
-    const [loggedIn, setLoggedIn] = useState<boolean>(false);
+
+    const { user } = useAuthContext()
+    const guideBlock = false
+
     return (
-        <Router>
+        <BrowserRouter>
             <div className="App" data-theme={theme}>
                 <header className="App-header">
-                    <HeaderUnit loggedIn={loggedIn} />
-                    <Switch>
-                        <Route path="/" exact>
-                            <HomePage loggedIn={loggedIn} />
-                        </Route>
-                        <Route path="/code/:id" exact>
-                            <CodeView />
-                        </Route>
-                        <Route path="/coder" exact>
-                            <Coder loggedIn={loggedIn} />
-                        </Route>
-                        <Route path="/guides" exact>
-                            <Guides />
-                        </Route>
-                        <Route path="/profile" exact>
-                            <Profile
-                                loggedIn={loggedIn}
-                                setLoggedIn={setLoggedIn}
-                            />
-                        </Route>
-                    </Switch>
+                    <HeaderUnit />
+                    {/* routes for navigation with security to not allow non logged in users to access data */}
+                    <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/code/:id" element={user? <CodeView /> : <Navigate to="/login" />} />
+                        <Route path="/coder" element={<Coder />} />
+                        <Route path="/guides" element={guideBlock? <Guides /> : <Navigate to='/'/>}/>
+                        <Route path="/profile" element={user? <Profile /> : <Navigate to="/login" />} />
+                        <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/profile"/>} />
+                    </Routes>
+                    {/* way to change the theme of the overall website */}
                     <select
                         className="select fixed bottom-2 left-2 btn-sm btn-secondary mt-5"
                         onChange={(e) => {
@@ -90,7 +85,7 @@ function App() {
                     </select>
                 </header>
             </div>
-        </Router>
+        </BrowserRouter>
     );
 }
 

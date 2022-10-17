@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import ArduinoOutput from "../components/coder/ArduinoOutput";
 import ConfigYaml from "../components/coder/configYaml";
 import { useCodeContext } from "../hooks/useCodeContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
-interface state {
-    loggedIn: boolean;
-}
-
-export default function Coder(props: state) {
+export default function Coder() {
+    //context to receive information over the whole app
+    const { user } = useAuthContext();
     const { dispatch } = useCodeContext();
     //state for arduino code output
     const [sliderCount, setSliderCount] = useState(3);
@@ -37,13 +36,13 @@ export default function Coder(props: state) {
     };
 
     //error
-    const [error, setError] = useState(null);
+    const [error, setError] = useState("");
 
     //project save button
     const saveTemplate = {
         codeName,
         sliderCount,
-        analogId,
+        analogId: analogId.slice(0, sliderCount),
         sliderConfig,
         comPort,
         configNoise,
@@ -51,11 +50,17 @@ export default function Coder(props: state) {
     };
     //async function to send fetch request to server to create new code block, also resets the state and updates dispatch
     const saveProject = async () => {
+        if (!user) {
+            setError("You must be logged in");
+            return;
+        }
+
         const response = await fetch("/api/code", {
             method: "POST",
             body: JSON.stringify(saveTemplate),
             headers: {
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${user.token}`,
             },
         });
         const json = await response.json();
@@ -75,7 +80,7 @@ export default function Coder(props: state) {
             setComPort("");
             setConfigNoise("");
             setInvertSlider("");
-            setError(null);
+            setError("");
             //alert to let user know code has been saved
             alert("new code added");
             //console.log for debugging onsave
@@ -84,7 +89,7 @@ export default function Coder(props: state) {
     };
 
     return (
-        <div className="artboard bg-base-200 rounded-xl border border-solid border-primary p-4 w-8/12 mb-2">
+        <div className="artboard bg-base-200 rounded-xl border border-solid border-accent p-4 w-8/12 mb-2">
             <h1 className="text-5xl">deejCoder:</h1>
             <br />
             <br />
@@ -102,7 +107,7 @@ export default function Coder(props: state) {
             />
             <br />
             <br />
-            <h2>How many knobs/sliders? Amount: {sliderCount}</h2>
+            <h2>How many knobs/sliders?</h2>
             <input
                 type="range"
                 min="0"
@@ -155,7 +160,6 @@ export default function Coder(props: state) {
                     Apply
                 </button>
             </div>
-
             <br />
             <ArduinoOutput
                 sliderCount={sliderCount}
@@ -197,7 +201,6 @@ export default function Coder(props: state) {
                     );
                 })}
             </div>
-
             <br />
             <div className="column-3 p-1 m-2">
                 Invert Sliders:{" "}
@@ -254,11 +257,12 @@ export default function Coder(props: state) {
             <br />
             <br />
             {/* button bottom of page for save or login prompt */}
-            {props.loggedIn ? (
+            {user && (
                 <button className="btn btn-secondary" onClick={saveProject}>
                     Save Project
                 </button>
-            ) : (
+            )}{" "}
+            {!user && (
                 <div className="alert bg-secondary shadow-lg">
                     <div>
                         <svg
@@ -279,7 +283,7 @@ export default function Coder(props: state) {
                             in!
                         </span>
                         <div className="flex-none">
-                            <Link to="/profile">
+                            <Link to="/login">
                                 <button className="btn btn-sm btn-primary">
                                     Login Page
                                 </button>

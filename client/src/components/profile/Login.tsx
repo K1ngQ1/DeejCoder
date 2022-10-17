@@ -1,25 +1,26 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useSignUp } from "../../hooks/useSignup";
+import { useLogIn } from "../../hooks/useLogin";
 
-interface state {
-    loggedIn: boolean;
-    setLoggedIn: React.Dispatch<React.SetStateAction<any>>;
-}
-
-export default function Login(props: state) {
+export default function Login() {
+    //state declaration
     const [account, setAccount] = useState(true);
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
-    const [userNameConfirm, setUserNameConfirm] = useState("");
-    const [passwordConfirm, setPasswordConfirm] = useState("");
 
-    const loginSubmit = () => {
-        console.log(userName, password);
-        props.setLoggedIn(true);
+    //sign up hook declare
+    const { signup, isLoading, error } = useSignUp();
+    //login hook declare
+    const { login, isLoadingI, errorI } = useLogIn();
+
+    //functions for submitting log in and sign in requests
+    const loginSubmit = async () => {
+        await login(userName, password);
     };
-    const signUpSubmit = () => {
-        console.log(userName, userNameConfirm, password, passwordConfirm);
-        props.setLoggedIn(true);
+    const signUpSubmit = async () => {
+        await signup(userName, password);
     };
+
     return (
         <div className="box-content w-full justify-center items-center my-12">
             <h1 className="text-4xl">
@@ -31,6 +32,7 @@ export default function Login(props: state) {
                     <input
                         className="input m-2 w-1/4"
                         placeholder="Username"
+                        value={userName}
                         onChange={(e) => {
                             setUserName(e.target.value);
                         }}
@@ -39,23 +41,30 @@ export default function Login(props: state) {
                     <input
                         className="input m-2 w-1/4"
                         type="password"
-                        placeholder="password"
+                        placeholder="Password"
+                        value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     ></input>
                     <br />
+                    {errorI && <div className="text-red-500">{errorI}</div>}
+                    <br />
+                    {/* <Link to="/profile"> */}
                     <button
                         className="btn btn-primary w-1/4"
                         value="Submit"
                         onClick={loginSubmit}
+                        disabled={isLoadingI}
                     >
-                        Login
+                        Log In
                     </button>
+                    {/* </Link> */}
                 </>
             ) : (
                 <>
                     <input
                         className="input m-2 w-1/4"
                         placeholder="Username"
+                        value={userName}
                         onChange={(e) => {
                             setUserName(e.target.value);
                         }}
@@ -63,34 +72,32 @@ export default function Login(props: state) {
                     <br />
                     <input
                         className="input m-2 w-1/4"
-                        placeholder="Confirm Username"
-                        onChange={(e) => {
-                            setUserNameConfirm(e.target.value);
-                        }}
-                    ></input>
-                    <br />
-                    <br />
-                    <input
-                        className="input m-2 w-1/4"
                         type="password"
                         placeholder="Password"
+                        value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     ></input>
+
                     <br />
-                    <input
-                        className="input m-2 w-1/4"
-                        type="password"
-                        placeholder="Confirm Password"
-                        onChange={(e) => setPasswordConfirm(e.target.value)}
-                    ></input>
+                    <label>
+                        <span className="label-text-alt text-accent">
+                            make use of at least one capital letter, number and
+                            unique key (!, @, #, etc.)
+                        </span>
+                    </label>
+                    {error && <div className="text-red-500">{error}</div>}
+
                     <br />
+                    {/* <Link to="/profile"> */}
                     <button
                         className="btn btn-primary w-1/4"
                         value="Submit"
                         onClick={signUpSubmit}
+                        disabled={isLoading}
                     >
                         Sign Up
                     </button>
+                    {/* </Link> */}
                 </>
             )}
             <br />

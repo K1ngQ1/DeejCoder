@@ -1,5 +1,4 @@
-import React from "react";
-
+//setting up interface for props import into component
 interface arduinoProps {
   sliderCount: Number,
   analogId: Array<String>

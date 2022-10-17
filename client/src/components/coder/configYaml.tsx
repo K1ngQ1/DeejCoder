@@ -1,3 +1,4 @@
+//setting up interface for props import into component
 interface state {
     sliderCount: Number;
     sliderConfig: Array<string>;

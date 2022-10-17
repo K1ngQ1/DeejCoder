@@ -1,3 +1,4 @@
+//export for calendar string creation to format dates displayed
 export const calendarStrings = {
     lastDay: "[Yesterday at] LT",
     sameDay: "[Today at] LT",

@@ -1,12 +1,17 @@
 const express = require("express");
 const router = express.Router();
 
+//import for controller functions for request logic
 const {
     createCodeBlock,
     getCode,
     getSingleCode,
     deleteCode,
 } = require("../controllers/codeControllers");
+
+//middleware auth import and function below it, require auth for all code routes
+const requireAuth = require("../middleware/requireAuth");
+router.use(requireAuth);
 
 //get all code
 router.get("/", getCode);
