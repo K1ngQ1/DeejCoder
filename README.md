@@ -50,3 +50,21 @@ This is a multi-page react app that can and will be extended in future versions 
 ## Appendices
 This will be a single page application with a router to display pages. It will work with a express server and communications will be handled by axios and mongo's communication interface for CRUD operations.
 
+# How to use the app
+The user should first create a ".env" file and input the different variables for example:
+
+PORT=<port number for the server to be on>
+MONGO_URI=<your mongo db connection url>
+SECRET=<your secret encryption key>
+NODE_ENV= development
+
+To use this app a user should first install all node dependencies in the root file with "npm i" and then in the client folder again with "npm i". To start the application the user should first go to the root folder and type in the terminal there "npm start", then you will need to go to the client folder and type in the terminal "npm start" and the page will open in the browser ready for use.
+
+# Third-party API
+This app does not make use of any 3rd party api but uses dependencies
+
+# How this application has been deployed
+This app has been deployed to heroku with a static html rendering from the server when the react app has been "npm run build"
+
+# Where to find the app
+https://deej-coder.herokuapp.com/
