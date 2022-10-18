@@ -51,12 +51,12 @@ This is a multi-page react app that can and will be extended in future versions 
 This will be a single page application with a router to display pages. It will work with a express server and communications will be handled by axios and mongo's communication interface for CRUD operations.
 
 # How to use the app
-The user should first create a ".env" file and input the different variables for example:
+The user should first create a ".env" file in the root file and input the different variables for example:
 
-PORT=<port number for the server to be on><br />
-MONGO_URI=<your mongo db connection url><br />
-SECRET=<your secret encryption key><br />
-NODE_ENV= development\n
+PORT=port number for the server to be on<br />
+MONGO_URI=your mongo db connection url<br />
+SECRET=your secret encryption key<br />
+NODE_ENV= development<br />
 
 To use this app a user should first install all node dependencies in the root file with "npm i" and then in the client folder again with "npm i". To start the application the user should first go to the root folder and type in the terminal there "npm start", then you will need to go to the client folder and type in the terminal "npm start" and the page will open in the browser ready for use.
 
